@@ -40,31 +40,6 @@ let questions = [
     chart: "https://rezpe.github.io/survey/charts/chart_gradient_211117.html"
   },
 
-  {
-    question:
-      "What is the probability of the NO2 levels being between 150 and 200 on April 23rd at 21:00 ?",
-    chart: "https://rezpe.github.io/survey/charts/chart_gradient_230417.html"
-  },
-  {
-    question:
-      "What is the probability of the NO2 levels being between 70 and 120 on April 24th at 03:00 ?",
-    chart: "https://rezpe.github.io/survey/charts/chart_gradient_230417.html"
-  },
-  {
-    question:
-      "What is the probability of the NO2 levels being above 40 on April 23rd at 19:00 ?",
-    chart: "https://rezpe.github.io/survey/charts/chart_gradient_230417.html"
-  },
-  {
-    question:
-      "What is the probability of the NO2 levels being between 60 and 100 on April 24th at 01:00 ?",
-    chart: "https://rezpe.github.io/survey/charts/chart_gradient_230417.html"
-  },
-  {
-    question:
-      "What is the probability of the NO2 levels being above 80 on April 24th at 08:00 ?",
-    chart: "https://rezpe.github.io/survey/charts/chart_gradient_230417.html"
-  }
 ];
 
 function create_UUID() {
