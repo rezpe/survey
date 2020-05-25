@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Survey site</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css'>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+- <nav class="site-header  py-1">
+   <div class="container d-flex flex-column flex-md-row justify-content-between">
+   </div>
+ </nav>
+
+ <div class="container-lg" id="app">
+
+   <!-- Presentation -->
+   <div class="mx-auto my-5" v-if="current==0">
+     <h1 class="display-4 font-weight-normal">Reading Chart Survey</h1>
+     <p class="lead font-weight-normal">During 5 questions, you will be presented with a chart, and you'll have to reply to a question related to that chart. Your answers are timed, so please answer as soon as possible to the question.</p>
+     <p class="lead font-weight-normal">You'll be reading a time series confidence interval chart, as in the figure below. In this chart, you'll have to read the probability the level of NO2 (in the y axis) is within a certain range. We will explain how it works in the next section.</p>
+     <p class="lead font-weight-normal">
+       <iframe :src="questions[0]['chart']" width="100%" height="500px" frameborder="0"></iframe>
+     </p>
+
+     <button type="button" class="btn btn-primary" @click="next()">Let's start</button>
+   </div>
+
+   <!-- Chart Explanation -->
+   <div class="mx-auto my-5" v-if="current==1">
+     <h1 class="display-4 font-weight-normal">How to read the charts ?</h1>
+
+     <p class="lead font-weight-normal">Below image shows the steps to follow to read the chart.</p>
+     <img src="https://rezpe.github.io/survey/explanations/ci_explanation.PNG"></img>
+     <p class="lead font-weight-normal">
+       <button type="button" class="btn btn-primary" @click="next()">Understood !</button></p>
+   </div>
+
+   <!-- Questions -->
+   <div class="mx-auto my-5" v-if="current>1 && current<questions.length+2">
+     <h1 class="display-4 font-weight-normal">Question {{current-1}}</h1>
+
+     <p class="lead font-weight-normal">
+       <iframe :src="questions[current-2]['chart']" width="100%" height="500px" frameborder="0"></iframe>
+     </p>
+     <p class="lead font-weight-normal">{{questions[current-2]['question']}}</p>
+     <p class="lead font-weight-normal">
+       <label for="answer">Answer</label>
+       <input type="text" v-model="answer"></input> 
+     </p>
+     
+
+     <p class="lead font-weight-normal">
+     <button type="button" class="btn btn-primary" @click="add_answer()">Submit answer</button>
+      </p>
+     <p class="lead font-weight-normal">
+       <img src="https://rezpe.github.io/survey/explanations/ci_explanation.PNG"></img>
+     </p>
+   </div>
+
+<!-- Confidence and load -->
+<div class="mx-auto my-5" v-if="current==questions.length+2">
+     <h1 class="display-4 font-weight-normal">Final question</h1>
+    <p class="lead font-weight-normal">Please, change the values of load and confidence to answer this question.</p>
+     <p class="lead font-weight-normal">
+       How confident are you in the answer ? (1-not confident 5-confident)
+       <select v-model="confidence">
+       <option v-for="i in [0,1,2,3,4,5]" :value="i" >{{i}}</option>
+       </select>
+     </p>
+     <p class="lead font-weight-normal">
+       How difficult was to answer ? (1-easy 5-difficult)
+       <select v-model="load">
+       <option v-for="i in [0,1,2,3,4,5]" :value="i" >{{i}}</option>
+       </select>
+     </p>
+
+     <button type="button" class="btn btn-primary" @click="submit_answers()" v-if="confidence!=0 && load!=0">Get code for Amazon MTurk</button>
+   </div>
+
+<!-- Submission -->
+   <div class="mx-auto my-5" v-if="current==100">
+     <h1 class="display-4 font-weight-normal">Thanks for doing the test</h1>
+
+     <p class="lead font-weight-normal">Please take the following code for Amazon Mturk: </p>
+     <p class="lead font-weight-normal">{{uuid}}</p>
+   </div>
+
+ </div>
+<!-- partial -->
+  <script src='https://cdn.jsdelivr.net/npm/vue@2.6.11'></script>
+<script src='https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js'></script>
+<script src='https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
